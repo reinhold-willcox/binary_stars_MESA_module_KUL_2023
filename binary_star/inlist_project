@@ -1,0 +1,82 @@
+&binary_job
+
+ ! What inlists to use for the stars
+   inlist_names(1) = 'inlist1'
+   inlist_names(2) = 'inlist2'
+
+ ! Whether to evolve both stars in the system or treat one as a point mass
+   evolve_both_stars = .true.
+
+   pgbinary_flag = .true.
+
+/ ! end of binary_job namelist
+
+
+&binary_controls
+
+ ! ===============================================================================
+ ! PHYSICS
+ ! ===============================================================================
+         
+ ! Initial conditions for the binary
+   m1 = 2.0d1  ! donor mass in Msun
+   m2 = 1.5d1 ! companion mass in Msun
+   initial_period_in_days = 2d1
+
+ ! Orbital angular momentum controls
+   do_jdot_mb = .false.     ! Magnetic braking around accretor
+   do_jdot_gr = .false.     ! Gravitational radiation taken into account
+   do_jdot_ls = .false.     ! No stellar rotation
+   do_jdot_ml = .true.      ! Mass loss, see mechanisms applied in mass_transfer_*
+
+ ! Mass transfer efficiency controls
+ ! RTW - why do these not need to add up to 1?
+   mass_transfer_alpha = 0d0      ! fraction of mass lost from the vicinity of donor as fast wind
+   mass_transfer_beta = 0.5d0       ! fraction of mass lost from the vicinity of accretor as fast wind
+   mass_transfer_delta = 0d0      ! fraction of mass lost from circumbinary coplanar toroid
+   mass_transfer_gamma = 0.0d0    ! radius of the circumbinary coplanar toroid is ``gamma**2 * orbital_separation``
+
+ ! Mass transfer scheme
+   mdot_scheme = "Kolb"           ! Optically thick overflow of Kolb & Ritter 1990, A&A, 236, 385
+   !transfer efficiency controls
+   !limit_retention_by_mdot_edd = .true.
+
+
+ ! ===============================================================================
+ ! Resolution parameters
+ ! ===============================================================================
+ ! Timestep controls
+ ! Based on relative changes, give upper limits on timestep: dt_next_max=dt*fX*abs(X/dX)
+ ! Hard limits force to make a retry if reached!
+ ! ROCHE LOBE
+   fr = 0.05              ! default 0.01, (r-rl)/rl
+   fr_limit = 1d-2        ! Limit change: otherwise the timesteps controls evolve naturally to zero
+   fr_dt_limit = 5d2      ! Minimum timestep limit allowed for fr in years (default 10d0)
+ ! ORBITAL ANGULAR MOMENTUM
+   fj = 0.05              ! change of orbital angular momentum
+ ! ENVELOPE MASS
+   fm = 0.05              ! default 0.01
+   fm_limit = 1d-2        ! default 1d-3
+ ! FRACTIONAL MASS
+   fdm = 0.05             ! default 0.005, fractional mass change of either star
+   fdm_hard = 0.1         ! forces retry
+ ! BINARY SEPARATION
+   fa = 0.05              ! default 0.01, binary separation
+
+   max_tries_to_achieve = 30      ! If this is <= 0 then explicit mass transfer scheme is used.
+
+ ! Tolerance for which a solution is considered valid
+ ! For Kolb scheme: |(mdot-mdot_end)/mdot_end| < b% implicit_scheme_tolerance
+   implicit_scheme_tolerance = 1d-1     ! default is 1d-2
+
+ ! allow a bit of contact from the accretor
+ ! To terminate evolution if (r-rl)/rl is bigger than this for accretor.
+ ! This is just to prevent many systems from terminating right at that point.
+   accretor_overflow_terminate = 0.3d0
+
+   terminal_interval = 1
+
+   !max_tries_to_achieve = 20
+         
+/ ! end of binary_controls namelist
+
