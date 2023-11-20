@@ -72,7 +72,7 @@
 
    !## mass change
 
-      !star_mdot ! d(star_mass)/dt (in msolar per year)
+!      star_mdot ! d(star_mass)/dt (in msolar per year)
       log_abs_mdot ! log10(abs(star_mdot)) (in msolar per year)
 
    !## imposed surface conditions
@@ -134,8 +134,7 @@
 
       ! you might want to get a more complete list of mixing regions by using the following
 
-      !mixing_regions <integer> ! note: this includes regions where the mixing type is no_mixing.
-      mixing_regions 20
+      mixing_regions 10 ! note: this includes regions where the mixing type is no_mixing.
 
          ! the <integer> is the number of regions to report
          ! there will be 2*<integer> columns for this in the log file, 2 for each region.
@@ -232,15 +231,15 @@
       !power_he_burn ! total thermal power from triple-alpha, excluding neutrinos (in Lsun units)
       !power_c_burn ! total thermal power from carbon burning, excluding neutrinos (in Lsun units)
       !log_power_nuc_burn ! total thermal power from all burning, excluding photodisintegrations
-      log_LH ! log10 power_h_burn
-      log_LHe ! log10 power_he_burn
+!      log_LH ! log10 power_h_burn
+!      log_LHe ! log10 power_he_burn
       !log_LC ! log10 power_c_burn
-      log_LZ ! log10 total burning power including LC, but excluding LH and LHe and photodisintegrations
+!      log_LZ ! log10 total burning power including LC, but excluding LH and LHe and photodisintegrations
       log_Lnuc ! log(LH + LHe + LZ)
       !log_Lnuc_ergs_s
       !log_Lnuc_sub_log_L
 
-      !extra_L ! integral of extra_heat in Lsun units
+      extra_L ! integral of extra_heat in Lsun units
       !log_extra_L ! log10 extra_L
 
    !## neutrino losses
@@ -257,9 +256,9 @@
 
       ! log10 total luminosity for reaction categories (Lsun units)
 
-      pp
-      cno
-      tri_alpha
+!      pp
+!      cno
+!      tri_alfa
       !burn_c
       !burn_n
       !burn_o
@@ -320,8 +319,7 @@
 
       ! you might want to get a more complete list of burning regions by using the following
 
-      !burning_regions <integer>
-      burning_regions 20
+      burning_regions 5
          ! the <integer> is the number of regions to report
          ! there will be 2*<integer> columns for this in the log file, 2 for each region.
          ! the first column for a region gives int(sign(val)*log10(max(1,abs(val))))
@@ -357,41 +355,31 @@
       !he_core_omega_div_omega_crit
       !he_core_k
 
-   !## carbon core
+   !## CO core
       co_core_mass
-      !c_core_radius
-      !c_core_lgT
-      !c_core_lgRho
-      !c_core_L
-      !c_core_v
-      !c_core_omega
-      !c_core_omega_div_omega_crit
-      !c_core_k
+      !CO_core
+      !co_core_radius
+      !co_core_lgT
+      !co_core_lgRho
+      !co_core_L
+      !co_core_v
+      !co_core_omega
+      !co_core_omega_div_omega_crit
+      !co_core_k
 
-   !## oxygen core
-      !o_core_mass
-      !o_core_radius
-      !o_core_lgT
-      !o_core_lgRho
-      !o_core_L
-      !o_core_v
-      !o_core_omega
-      !o_core_omega_div_omega_crit
-      !o_core_k
-
-   !## silicon core
-      !si_core_mass
-      !si_core_radius
-      !si_core_lgT
-      !si_core_lgRho
-      !si_core_L
-      !si_core_v
-      !si_core_omega
-      !si_core_omega_div_omega_crit
-      !si_core_k
+   !## ONe core
+      one_core_mass
+      !one_core_radius
+      !one_core_lgT
+      !one_core_lgRho
+      !one_core_L
+      !one_core_v
+      !one_core_omega
+      !one_core_omega_div_omega_crit
+      !one_core_k
 
    !## iron core
-      fe_core_mass
+!      fe_core_mass
       !fe_core_radius
       !fe_core_lgT
       !fe_core_lgRho
@@ -402,7 +390,7 @@
       !fe_core_k
 
    !## neuton rich core
-      neutron_rich_core_mass
+!      neutron_rich_core_mass
       !neutron_rich_core_radius
       !neutron_rich_core_lgT
       !neutron_rich_core_lgRho
@@ -414,10 +402,10 @@
 
    !## envelope
 
-      !envelope_mass ! = star_mass - he_core_mass
-      !envelope_fraction_left ! = envelope_mass / (initial_mass - he_core_mass)
+      envelope_mass ! = star_mass - he_core_mass
+      envelope_fraction_left ! = envelope_mass / (initial_mass - he_core_mass)
 
-      !h_rich_layer_mass ! = star_mass - he_core_mass
+      h_rich_layer_mass ! = star_mass - he_core_mass
       !he_rich_layer_mass ! = he_core_mass - c_core_mass
       !c_rich_layer_mass ! = c_core_mass - o_core_mass
       !o_rich_layer_mass ! = o_core_mass - si_core_mass
@@ -428,11 +416,11 @@
 
 !# timescales
 
-      !dynamic_timescale ! dynamic timescale (seconds) -- estimated by 2*pi*sqrt(r^3/(G*m))
-      !kh_timescale ! kelvin-helmholtz timescale (years)
-      !mdot_timescale ! star_mass/abs(star_mdot) (years)
-      !kh_div_mdot_timescales ! kh_timescale/mdot_timescale
-      !nuc_timescale ! nuclear timescale (years) -- proportional to mass divided by luminosity
+      dynamic_timescale ! dynamic timescale (seconds) -- estimated by 2*pi*sqrt(r^3/(G*m))
+      kh_timescale ! kelvin-helmholtz timescale (years)
+      mdot_timescale ! star_mass/abs(star_mdot) (years)
+      kh_div_mdot_timescales ! kh_timescale/mdot_timescale
+      nuc_timescale ! nuclear timescale (years) -- proportional to mass divided by luminosity
       !log_chem_timescale ! burn+mix timescale (years)
          ! approximately min over all cells k and species i of x(i,k)/abs(dxdt_mix + dxdt_burn)
       !log_chem_timescale_div_time_step
@@ -483,11 +471,11 @@
 
    !## conditions at or near the surface of the model (outer edge of outer cell)
 
-      !luminosity ! luminosity in Lsun units
+      luminosity ! luminosity in Lsun units
       !luminosity_ergs_s ! luminosity in cgs units
       log_L ! log10 luminosity in Lsun units
       !log_L_ergs_s ! log10 luminosity in cgs units
-      !radius ! Rsun
+      radius ! Rsun
       log_R ! log10 radius in Rsun units
       !radius_cm
       !log_R_cm
@@ -495,10 +483,10 @@
       log_g ! log10 gravity
       !gravity
       !log_Ledd
-      !log_L_div_Ledd ! log10(L/Leddington)
-      !lum_div_Ledd
+!      log_L_div_Ledd ! log10(L/Leddington)
+      lum_div_Ledd
       !log_surf_optical_depth
-      !surface_optical_depth
+      surface_optical_depth
 
       !log_surf_cell_opacity ! old name was log_surf_opacity
       !log_surf_cell_P ! old name was log_surf_P
@@ -512,17 +500,17 @@
 
       !v_surf ! (cm/s)
       !v_surf_km_s ! (km/s)
-      v_div_csound_surf ! velocity divided by sound speed at outermost grid point
+!      v_div_csound_surf ! velocity divided by sound speed at outermost grid point
       !v_div_csound_max ! max value of velocity divided by sound speed at face
 
       !v_surf_div_v_kh ! v_surf/(photosphere_r/kh_timescale)
       !surface_accel_div_grav ! (v - v_old)/dt divided by GM/R^2 at outermost grid point
 
       !surf_avg_j_rot
-      !surf_avg_omega
-      !surf_avg_omega_crit
-      !surf_avg_omega_div_omega_crit
-      surf_avg_v_rot ! km/sec rotational velocity at equator
+!      surf_avg_omega
+!      surf_avg_omega_crit
+!      surf_avg_omega_div_omega_crit
+      !surf_avg_v_rot ! km/sec rotational velocity at equator
       !surf_avg_v_crit ! critical rotational velocity at equator
       !surf_avg_v_div_v_crit
       !surf_avg_Lrad_div_Ledd
@@ -587,7 +575,7 @@
       ! shorter names for above
       !log_cntr_P
       !log_cntr_Rho
-      log_cntr_T
+      !log_cntr_T
 
       !center_T ! temperature
       !center_Rho ! density
@@ -595,9 +583,9 @@
 
       !center_degeneracy ! the electron chemical potential in units of k*T
       !center_gamma ! plasma interaction parameter
-      center_mu
+!      center_mu
       center_ye
-      center_abar
+!      center_abar
       !center_zbar
 
       !center_eps_grav
@@ -639,8 +627,8 @@
       ! individual central mass fractions (as many as desired)
       center h1
       center he4
-      center c12
-      center o16
+!      center c12
+!      center o16
 
       ! individual log10 central mass fractions (as many as desired)
       !log_center h1
@@ -658,6 +646,7 @@
       surface h1
       surface he4
       surface c12
+      surface n14
       surface o16
       ! etc.
 
@@ -903,7 +892,7 @@
 
 !# energy information
 
-      !total_energy ! at end of step
+      total_energy ! at end of step
       !log_total_energy ! log(abs(total_energy))
       !total_energy_start ! at start of step
       !total_energy_after_adjust_mass ! after mass adjustments
@@ -929,7 +918,7 @@
       !tot_PE_change
 
 
-      !total_internal_energy
+      total_internal_energy
       !log_total_internal_energy
       !total_internal_energy_start
       !total_internal_energy_after_adjust_mass
@@ -973,8 +962,8 @@
 
       !total_energy_minus_sources_and_sinks
       !total_energy_plus_L_surf
-      !total_entropy
-      !total_eps_grav
+      total_entropy
+      total_eps_grav
 
       !total_energy_sources_and_sinks ! for this step
       !total_nuclear_heating
@@ -996,7 +985,7 @@
 
 
       !run_deltaE
-      !rel_run_E_err
+      rel_run_E_err
 
       !rel_run_deltaE
       !log_rel_run_deltaE
@@ -1026,9 +1015,9 @@
 
  !# rotation
 
-      !total_angular_momentum
+      total_angular_momentum
       !log_total_angular_momentum
-      !i_rot_total ! moment of inertia
+      i_rot_total ! moment of inertia
 
       !total_rotational_kinetic_energy
       !log_total_rotational_kinetic_energy
@@ -1165,8 +1154,6 @@
 
       ! Outputs the absolute magnitude for the star in filter band ``filter'' (case sensitive)
       !abs_mag filter
-      abs_mag V
-      abs_mag B
 
       ! Adds all the bc's to the output
       !add_bc
@@ -1196,7 +1183,7 @@
    !## solver iterations
 
       num_iters ! same as num_solver_iterations
-      !num_solver_iterations ! iterations at this step
+!      num_solver_iterations ! iterations at this step
       !total_num_solver_iterations ! total iterations during the run
 
       !rotation_solver_steps
@@ -1232,4 +1219,4 @@
       !num_hydro_splits
 
    !## timing
-      !elapsed_time ! time since start of run (seconds)
+!      elapsed_time ! time since start of run (seconds)

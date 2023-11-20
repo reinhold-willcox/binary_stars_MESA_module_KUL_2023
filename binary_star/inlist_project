@@ -5,7 +5,7 @@
    inlist_names(2) = 'inlist2'
 
  ! Whether to evolve both stars in the system or treat one as a point mass
-   evolve_both_stars = .true.
+   evolve_both_stars = .false.
 
    pgbinary_flag = .true.
 
@@ -30,7 +30,6 @@
    do_jdot_ml = .true.      ! Mass loss, see mechanisms applied in mass_transfer_*
 
  ! Mass transfer efficiency controls
- ! RTW - why do these not need to add up to 1?
    mass_transfer_alpha = 0d0      ! fraction of mass lost from the vicinity of donor as fast wind
    mass_transfer_beta = 0.5d0       ! fraction of mass lost from the vicinity of accretor as fast wind
    mass_transfer_delta = 0d0      ! fraction of mass lost from circumbinary coplanar toroid
